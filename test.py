@@ -2,17 +2,11 @@ import bentoml
 import tensorflow as tf
 from tensorflow import keras
 import numpy as np
-from bentoml.io import File, NumpyNdarray
 import librosa
-import warnings
-warnings.filterwarnings("ignore")
 
 mappings = ["bed","bird","cat","dog","down","eight","five","four","go","happy",
            "house","left","marvin","nine","no","off","on","one","right","seven","sheila",
             "six","stop","three","tree","two","up","wow","yes","zero"]
-
-# bentoml_model = bentoml.tensorflow.save_model("speech_command_model", model)
-# signal, sr = librosa.load('D:\Speech\00b01445_nohash_0.wav',sr=None)
 
 keras_model = keras.models.load_model("D:\Speech\SpeechCom.keras")
 
@@ -42,17 +36,11 @@ def preprocess(file):
     # Run the model prediction
     # Return the prediction
     return input_data
-# speech_com_runner = bentoml.tensorflow.get("speech_com_model").to_runner()
-# speech_com_runner.init_local()
-# print(speech_com_runner.predict.run(preprocess('D:\Speech\00b01445_nohash_0.wav')))
-file_path = 'D:/Speech/00b01445_nohash_0.wav'
+file_path = '00b01445_nohash_0.wav'
 x = preprocess(file_path)
 p = keras_model.predict(x)
 p_i = p.argmax()
 print(f"predicted word: {mappings[p_i]}")
-
-bento_model = bentoml.tensorflow.save_model('model',keras_model)
-print(bento_model.tag)
 
 
 
