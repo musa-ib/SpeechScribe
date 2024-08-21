@@ -24,4 +24,4 @@ Build the Docker image:
 docker build -t speechscribe .
 
 Run the Docker container:
-docker run -v /path/to/credentials.json:/app/credentials.json speechscribe
+docker run -d 8501:8501 speechscribe
